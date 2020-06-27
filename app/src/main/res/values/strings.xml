@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">UserInfoTask</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_password">Password</string>
+    <string name="view">VIEW</string>
+    <string name="invalid_email">Invalid email address</string>
+    <string name="invalid_phone">Phone must be 12 characters in length and in international format</string>
+    <string name="invalid_password">Password must be at least 6 characters in length and contain letters and numbers</string>
+    <string name="picture_not_attached">Please, attach a picture.</string>
+    <string name="send_by_email">SEND BY EMAIL</string>
+</resources>

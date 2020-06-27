@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="picture_height">250dp</dimen>
+    <dimen name="info_icon_width">40dp</dimen>
+    <integer name="phone_length">12</integer>
+</resources>
