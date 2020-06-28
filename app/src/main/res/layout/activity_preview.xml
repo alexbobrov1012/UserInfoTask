@@ -11,6 +11,7 @@
         android:layout_height="@dimen/picture_height"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_default_user_picture"
+        android:padding="@dimen/padding_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
