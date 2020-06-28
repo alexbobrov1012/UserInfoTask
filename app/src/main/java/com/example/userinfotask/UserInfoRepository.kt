@@ -12,7 +12,7 @@ object UserInfoRepository {
     lateinit var userInfo: UserInfo
 
     @Throws(IOException::class)
-    fun savePictureToFile(context: Context) : File {
+    fun getUserPictureAsFile(context: Context) : File {
         val storageDirectory =
             context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val outStream: OutputStream
@@ -28,7 +28,4 @@ object UserInfoRepository {
         outStream.close()
         return file
     }
-
-
-
 }

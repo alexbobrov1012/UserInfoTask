@@ -17,7 +17,7 @@ class PreviewViewModel : ViewModel() {
         intent.putExtra(Intent.EXTRA_TEXT, "\rEmail: ${userInfo.email}\n\rPhone: ${userInfo.phone}\n\r")
 
         try {
-            val file = UserInfoRepository.savePictureToFile(context)
+            val file = UserInfoRepository.getUserPictureAsFile(context)
             val u = FileProvider.getUriForFile(
                 context,
                 "com.example.fileprovider",
@@ -33,8 +33,10 @@ class PreviewViewModel : ViewModel() {
     }
 
     fun getPicture() = userInfo.picture
-    fun getEmail() = userInfo.email
-    fun getPhone() = userInfo.phone
-    fun getPassword() = userInfo.password
 
+    fun getEmail() = userInfo.email
+
+    fun getPhone() = userInfo.phone
+
+    fun getPassword() = userInfo.password
 }
