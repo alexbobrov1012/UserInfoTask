@@ -16,10 +16,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 
 class UserInfoActivity : AppCompatActivity() {
@@ -27,7 +23,6 @@ class UserInfoActivity : AppCompatActivity() {
         private const val REQUEST_CODE_PICTURE = 1
     }
     private lateinit var viewModel: UserInfoViewModel
-    private val compositeDisposable = CompositeDisposable()
     private lateinit var picture: AppCompatImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,34 +78,9 @@ class UserInfoActivity : AppCompatActivity() {
             }
         })
 
-        compositeDisposable.addAll(
-            email.getTextChangedObservable()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{ emailText ->
-                    viewModel.userInputChanged(
-                        email = emailText
-                    )
-                },
-            phone.getTextChangedObservable()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { phoneText ->
-                    viewModel.userInputChanged(
-                        phone = phoneText
-                    )
-                },
-            password.getTextChangedObservable()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { passwordText ->
-                    viewModel.userInputChanged(
-                        password = passwordText
-                    )
-                }
-        )
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
+        email.setTextChangedListener { viewModel.userInputChanged(email = it) }
+        phone.setTextChangedListener{ viewModel.userInputChanged(phone = it) }
+        password.setTextChangedListener{ viewModel.userInputChanged(password = it) }
     }
 
     private fun dispatchTakePictureIntent() {
@@ -133,17 +103,14 @@ class UserInfoActivity : AppCompatActivity() {
     }
 }
 
-fun EditText.getTextChangedObservable(): Observable<String> {
-    return Observable.create<String> {
-        this.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(text: Editable?) {
-                it.onNext(text.toString())
-            }
+fun EditText.setTextChangedListener(v: (String) -> (Unit)) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(text: Editable?) {
+             v(text.toString())
+        }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-        })
-    }.debounce(700, TimeUnit.MILLISECONDS)
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    })
 }
